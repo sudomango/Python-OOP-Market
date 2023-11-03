@@ -6,7 +6,7 @@ class Market:
 
     def make_order(self, product_class, amount):
         pass
-    
+
     def sell_products(self, product_class, amount):
         pass
 
@@ -15,10 +15,10 @@ class Market:
 
     def check_storage(self):
         pass
-    
+
     def count_expire_goods(self):
         pass
-    
+
     def print_expire_goods(self):
         pass
 
