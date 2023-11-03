@@ -1,0 +1,25 @@
+{
+    "Fruits": {
+        "id": 1003,
+        "expiration": 30,
+        "price_multiply": 1.8
+    },
+    "Drinks": {
+        "id": 1004,
+        "expiration": 180,
+        "price_multiply": 2
+    },
+    "Books": {
+        "id": 1006,
+        "price_multiply": 1.3
+    },
+    "Household Goods": {
+        "id": 1009,
+        "price_multiply": 1.5
+    },
+    "Quick Breakfasts": {
+        "id": 1010,
+        "expiration": 360,
+        "price_multiply": 1.8
+    }
+}
