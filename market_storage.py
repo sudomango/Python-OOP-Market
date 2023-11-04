@@ -17,7 +17,32 @@ class Storage:
 
     # Забрать товары указанного класса в указанном кол-ве со склада (если они, конечно, имеются в наличии).
     def get_from_storage(self, product_class: str, products_amount: int) -> bool:
-        pass
+
+        if product_class in self.__products_amount:
+            available_amount = self.__products_amount[product_class]
+            if products_amount > available_amount:
+                print(f"-> Ошибка! Вы пытаетесь взять {products_amount} ед. товара из доступного кол-ва = {available_amount} ед.")
+                print("-> Операция прервана, изменения не были сохранены.")
+                return False
+            else:
+                products_amount_copy = products_amount
+                # Удаление продуктов со склада согласно их количеству.
+                while products_amount_copy != 0:
+                    last_product = self.__storage[product_class][-1]
+                    last_product_amount = last_product.get_amount()
+                    if products_amount_copy < last_product_amount:
+                        self.__storage[product_class][-1].set_amount(last_product_amount - products_amount_copy)
+                        products_amount_copy = 0
+                    else:
+                        self.__storage[product_class].pop()
+                        products_amount_copy -= last_product_amount
+
+                self.__free_place += products_amount
+                self.__products_amount[product_class] -= products_amount
+                return True
+        else:
+            print("-> Ошибка! Такого товара на складе не существует.")
+            return False
 
     # Вспомогательный метод, позволяющий увеличить вместительность склада.
     def __increase_capacity(self, n: int):
