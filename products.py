@@ -11,7 +11,7 @@ class Product:
         self.__id = Product.init_values[product_class]["id"]  # Артикул класса товаров.
         if "expiration" in Product.init_values[product_class]:
             self.__expiration = Product.init_values[product_class]["expiration"]  # Срок годности класса товаров (в днях).
-        self.__price_multiply = Product.init_values[product_class]["price_multiply"]  # Наценка на класс товаров.
+        self.__price_multiply = Product.init_values[product_class]["price_multiply"]  # Наценка-множитель на класс товара.
         self.__amount = products_amount
         self.__manufacture_date = date  # Дата производства товара.
         self.__purchase_price = Product.products_prices[product_class]  # Стоимость закупки класса товаров.
@@ -26,7 +26,7 @@ class Product:
     def get_amount(self):
         return self.__amount
 
-    def set_amount(self, new_amount):
+    def set_amount(self, new_amount: int):
         self.__amount = new_amount
         return True
 
@@ -38,25 +38,33 @@ class Product:
 
 
 class Fruits(Product):
-    def __init__(self, products_amount, date):
+    def __init__(self, products_amount: int = 1, date: datetime.date = datetime.today().date()):
         super().__init__("Fruits", products_amount, date)
 
 
 class Drinks(Product):
-    def __init__(self, products_amount, date):
+    def __init__(self, products_amount: int = 1, date: datetime.date = datetime.today().date()):
         super().__init__("Drinks", products_amount, date)
 
 
 class Books(Product):
-    def __init__(self, products_amount, date):
+    def __init__(self, products_amount: int = 1, date: datetime.date = datetime.today().date()):
         super().__init__("Books", products_amount, date)
+
+    # У книжной продукции нет срока годности (по крайней мере, в данной программе).
+    def is_fresh(self, today: datetime = datetime.now()):
+        return True
 
 
 class HouseGoods(Product):
-    def __init__(self, products_amount, date):
+    def __init__(self, products_amount: int = 1, date: datetime.date = datetime.today().date()):
         super().__init__("Household Goods", products_amount, date)
+
+    # У домашних товаров нет срока годности (по крайней мере, в данной программе).
+    def is_fresh(self, today: datetime = datetime.now()):
+        return True
 
 
 class QuickBreakfasts(Product):
-    def __init__(self, products_amount, date):
+    def __init__(self, products_amount: int = 1, date: datetime.date = datetime.today().date()):
         super().__init__("Quick Breakfasts", products_amount, date)
