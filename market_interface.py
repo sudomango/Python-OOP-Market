@@ -24,7 +24,7 @@ class Market_ABC(ABC):
 
     # Проверить, сколько места осталось на складе.
     @abstractmethod
-    def check_storage(self) -> int:
+    def check_storage_free_place(self) -> int:
         pass
 
     # Проверить, какая сегодня дата (в программе).
