@@ -9,7 +9,7 @@ class Cashbox:
             self.__balance += amount
             return True
         else:
-            print("Ошибка! Вы ввели неверную сумму.")
+            print("-> Ошибка! Вы ввели неверную сумму.")
             return False
 
     def sub_cash(self, amount: float) -> bool:
@@ -17,7 +17,7 @@ class Cashbox:
             self.__balance -= amount
             return True
         else:
-            print("Ошибка! Вы ввели неверную сумму или в кассе недостаточно средств.")
+            print("-> Ошибка! Вы ввели неверную сумму или в кассе недостаточно средств.")
             return False
 
     def get_balance(self):
