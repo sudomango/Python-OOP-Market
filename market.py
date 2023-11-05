@@ -1,3 +1,5 @@
+import market_interface
+
 from market_storage import Storage
 from cashbox import Cashbox
 from products import *
@@ -6,7 +8,7 @@ from pathlib import Path
 from random import randint
 from current_date import CurrentDate
 
-class Market:
+class Market(market_interface.Market_ABC):
     def __init__(self, start_cash: float = 200):
         self.__cashbox = Cashbox()  # Инициализируем Кассу.
         self.__cashbox.add_cash(start_cash)  # Добавляем в кассу стартовый капитал.
@@ -65,24 +67,24 @@ class Market:
         return True
 
     # Проверить, сколько денег осталось в кассе.
-    def check_cashbox(self):
+    def check_cashbox(self) -> float:
         return self.__cashbox.get_balance()
 
     # Проверить, сколько места осталось на складе.
-    def check_storage(self):
+    def check_storage_free_place(self) -> int:
         return self.__storage.get_free_place_info()
 
     # Проверить, какая сегодня дата (в программе).
-    def check_current_date(self):
+    def check_current_date(self) -> str:
         return self.__current_day.get_date_string()
 
     # Проверить, сколько дней прошло от запуска нашего магазина.
-    def check_days_from_start(self):
+    def check_days_from_start(self) -> int:
         delta = self.__current_day.get_date() - self.__start_day.get_date()
         return delta.days
 
     # Метод возвращает кол-во просроченных партий и единиц товара, которые в данный момент хранятся на складе (в виде кортежа).
-    def count_expire_goods(self):
+    def count_expire_goods(self) -> tuple:
         number_of_expire_batches = 0
         number_of_expire_units = 0
         storage = self.__storage.get_storage_content()
@@ -99,18 +101,20 @@ class Market:
         return (number_of_expire_batches, number_of_expire_units)
 
     # Метод распечатывает кол-во просроченных партий и единиц товара, которые в данный момент хранятся на складе.
-    def print_expire_goods(self):
+    def print_expire_goods(self) -> bool:
         count_of_expire_goods = self.count_expire_goods()
         if count_of_expire_goods == (0, 0):
             print("Все товары на складе свежие. Так держать!")
         else:
             print(f"На данный момент на складе {count_of_expire_goods[0]} просроченных партий, в которых {count_of_expire_goods[1]} ед. просроченного товара.")
+        return True
 
     # Распечатать JSON-файл с закупочными ценами в окне терминала.
-    def print_purchase_prices(self):
+    def print_purchase_prices(self) -> bool:
         prices = JsonWorker().unpack(os.path.dirname(__file__) + "/json/purchase_price.json")
         for key in prices.keys():
             print(f"Стоимость закупки 1 ед. для категории товара {key} = {prices[key]}")
+        return True
 
     # Распечатать текущее содержимое склада (какие товары сейчас на нём хранятся и в каком количестве).
     # Можно распечатать в окне терминала, а можно в JSON-файл (экспериментально).

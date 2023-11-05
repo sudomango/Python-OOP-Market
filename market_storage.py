@@ -74,7 +74,7 @@ class Storage:
     # Дата производства партии зависит от класса товара и его срока годности.
     # Рассчитывается по формуле: Текущая дата - random(3 .. срок_годности_класса_товаров - 10).
     # То есть партия не может быть свежее, чем 3-х дневной давности, но не может быть хуже, чем за 10 дней до окончания срока годности.
-    def __random_date(self, value):
+    def __random_date(self, value) -> datetime.date:
         rand_date = deepcopy(self.__current_date)
         rand_date.sub_days(randint(3, value - 10))
         return rand_date.get_date()
@@ -97,17 +97,17 @@ class Storage:
         return True
 
     # Возвращает содержимое склада в сокращённом варианте в виде словаря {product_class: products_amount, ...}.
-    def get_storage_info(self):
+    def get_storage_info(self) -> dict:
         return self.__products_amount
 
     # Возвращает содержимое склада в полном варианте в виде словаря {product_class: [list of Product Objects]}.
-    def get_storage_content(self):
+    def get_storage_content(self) -> dict:
         return self.__storage
 
     # Возвращает текущее количество свободного места на складе (сколько ед. товара ещё можно разместить на складе).
-    def get_free_place_info(self):
+    def get_free_place_info(self) -> int:
         return self.__free_place
 
     # Возвращает кортеж вида (свободное_место, общая_вместимость_склада).
-    def get_capacity_info(self):
+    def get_capacity_info(self) -> tuple:
         return (self.__free_place, self.__capacity)
