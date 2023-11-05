@@ -20,5 +20,5 @@ class Cashbox:
             print("-> Ошибка! Вы ввели неверную сумму или в кассе недостаточно средств.")
             return False
 
-    def get_balance(self):
+    def get_balance(self) -> float:
         return self.__balance

@@ -18,24 +18,24 @@ class Product:
         self.__purchase_price = Product.products_prices[product_class]  # Стоимость закупки класса товаров.
         self.__selling_price = self.__purchase_price * self.__price_multiply  # Стоимость продажи класса товаров в нашем Маркете.
 
-    def get_manufacture_date(self):
+    def get_manufacture_date(self) -> datetime.date:
         return self.__manufacture_date
 
-    def get_purchase_price(self):
+    def get_purchase_price(self) -> float:
         return self.__purchase_price
 
-    def get_amount(self):
+    def get_amount(self) -> int:
         return self.__amount
 
-    def set_amount(self, new_amount: int):
+    def set_amount(self, new_amount: int) -> bool:
         self.__amount = new_amount
         return True
 
-    def get_selling_price(self):
+    def get_selling_price(self) -> float:
         return self.__selling_price
 
     # Метод возвращает True, если срок годности данной партии товара в норме, если партия просрочена - возвращает False.
-    def is_fresh(self, today: datetime.date):
+    def is_fresh(self, today: datetime.date) -> bool:
         return (today - self.__manufacture_date).days <= self.__expiration
 
 
@@ -57,7 +57,7 @@ class Books(Product):
         super().__init__("Books", products_amount, date)
 
     # У книжной продукции нет срока годности (по крайней мере, в данной программе).
-    def is_fresh(self, today: datetime = datetime.now()):
+    def is_fresh(self, today: datetime = datetime.now()) -> bool:
         return True
 
 
@@ -66,7 +66,7 @@ class HouseGoods(Product):
         super().__init__("Household Goods", products_amount, date)
 
     # У хозяйственных товаров нет срока годности (по крайней мере, в данной программе).
-    def is_fresh(self, today: datetime = datetime.now()):
+    def is_fresh(self, today: datetime = datetime.now()) -> bool:
         return True
 
 
